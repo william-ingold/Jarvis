@@ -4,9 +4,9 @@
 #include "HandsetHandler.h"
 #include "ControlboxHandler.h"
 #include "Timer.h"
-#include "esphome.h"
+// #include "esphome.h"
 
-using namespace esphome;
+// using namespace esphome;
 
 enum LedState
 {
@@ -117,13 +117,13 @@ struct Settings
 };
 
 
-class JarvisDesk : public Component
+class JarvisDesk 
 {
 public:
     JarvisDesk();
 
-    void setup() override;
-    void loop() override;
+    void setup();
+    void loop();
 
     void handleHandset();
     void handleControlbox();
@@ -165,6 +165,7 @@ public:
     
     void setDisplayNumber(uint16_t val);
     
+    /*
     sensor::Sensor* sPreset1;
     sensor::Sensor* sPreset2;
     sensor::Sensor* sPreset3;
@@ -182,6 +183,7 @@ public:
     select::Select* sSensitivity;
     
     number::Number* sHeight;
+    */
     
 private:
     Settings mSettings;

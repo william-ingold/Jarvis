@@ -30,7 +30,7 @@ void JarvisDesk::loop()
     
     if (!mSettings and T1.isFinished())
     {
-        ESP_LOGI("TAG", "Requesting settings from controlbox...");
+        // ESP_LOGI("TAG", "Requesting settings from controlbox...");
         requestAllSettings();
         T1.restart();
     }
@@ -105,8 +105,9 @@ void JarvisDesk::extractSetting(const SerialMessage& msg)
     {
         mSettings.sensitivity = msg.getParam<SensitivityValue>();
         
-        ESP_LOGI("TAG", "Sensitivity: ", mSettings.sensitivity);
+        // ESP_LOGI("TAG", "Sensitivity: ", mSettings.sensitivity);
         
+        /*
         sPreset1->publish_state(mSettings.getPreset1()); 
         sPreset2->publish_state(mSettings.getPreset2()); 
         sPreset3->publish_state(mSettings.getPreset3()); 
@@ -115,19 +116,21 @@ void JarvisDesk::extractSetting(const SerialMessage& msg)
         sTouchMode->publish_state(valToString(mSettings.touchMode));
         sKillMode->publish_state(valToString(mSettings.killMode));
         sSensitivity->publish_state(valToString(mSettings.sensitivity));
+        */
+
         break;
     }
     case CommandFromControlboxType::MinMaxSet:
         mSettings.userLimitSet = msg.getParam<UserLimitSetValue>();
-        sUserLimitSet->publish_state(valToString(mSettings.userLimitSet));
+        // sUserLimitSet->publish_state(valToString(mSettings.userLimitSet));
         break;
     case CommandFromControlboxType::MinHeight:
         mSettings.userLimitMin = msg.getParam<uint16_t>();
-        sUserLimitMin->publish_state(mSettings.userLimitMin);
+        // sUserLimitMin->publish_state(mSettings.userLimitMin);
         break;
     case CommandFromControlboxType::MaxHeight:
         mSettings.userLimitMax = msg.getParam<uint16_t>();
-        sUserLimitMax->publish_state(mSettings.userLimitMax);
+        // sUserLimitMax->publish_state(mSettings.userLimitMax);
         break;
     case CommandFromControlboxType::AbsLimits:
     {
@@ -139,13 +142,15 @@ void JarvisDesk::extractSetting(const SerialMessage& msg)
         mSettings.sysLimitMax = COMBINE_BYTES(params[0], params[1]) - 1;
         mSettings.sysLimitMin = COMBINE_BYTES(params[2], params[3]) - 1;
         
+        /*
         sSysLimitMin->publish_state(mSettings.sysLimitMin);
         sSysLimitMax->publish_state(mSettings.sysLimitMax);
+        */
         
         break;
     }
     case CommandFromControlboxType::Height:
-        sHeight->publish_state(msg.getParam<uint16_t>()); break;
+        // sHeight->publish_state(msg.getParam<uint16_t>()); break;
     default:
         break;
     }
@@ -215,7 +220,7 @@ void JarvisDesk::setUnits(const char* value)
     }
     else
     {
-        ESP_LOGW("TAG", "Unknown units value received: [%s]", value);
+        // ESP_LOGW("TAG", "Unknown units value received: [%s]", value);
         return;
     }
     
@@ -238,7 +243,7 @@ void JarvisDesk::setTouchMode(const char* value)
     }
     else
     {
-        ESP_LOGW("TAG", "Unknown touch mode value received: [%s]", value);
+        // ESP_LOGW("TAG", "Unknown touch mode value received: [%s]", value);
         return;
     }
     
@@ -261,7 +266,7 @@ void JarvisDesk::setKillMode(const char* value)
     }
     else
     {
-        ESP_LOGW("TAG", "Unknown kill mode value received: [%s]", value);
+        // ESP_LOGW("TAG", "Unknown kill mode value received: [%s]", value);
         return;
     }
     SerialMessage newcmd(CommandFromHandsetType::SetKillMode);
@@ -287,7 +292,7 @@ void JarvisDesk::setSensitivity(const char* value)
     }
     else
     {
-        ESP_LOGW("TAG", "Unknown sensitivity value received: [%s]", value);
+        // ESP_LOGW("TAG", "Unknown sensitivity value received: [%s]", value);
         return;
     }
     SerialMessage newcmd(CommandFromHandsetType::SetSensitivity);
