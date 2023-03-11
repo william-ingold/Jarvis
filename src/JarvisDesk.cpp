@@ -5,8 +5,10 @@
 
 Timer T1(10000);
 
-JarvisDesk::JarvisDesk()
+JarvisDesk::JarvisDesk(HandsetPresets defaultSitting, HandsetPresets defaultStanding)
 {
+    this->mDefaultSittingPreset = defaultSitting;
+    this->mDefaultStandingPreset = defaultStanding;
 }
 
 void JarvisDesk::setup()
@@ -328,6 +330,45 @@ void JarvisDesk::goPreset3()
 void JarvisDesk::goPreset4()
 {
     sendMessage(SerialMessage(CommandFromHandsetType::MoveToPreset4));
+}
+
+void JarvisDesk::requestPreset(HandsetPresets value)
+{
+    switch(value)
+    {
+    case HandsetPresets::One:
+        // mDesiredHeight = mSettings.getPreset1();
+        Serial.printf("Go to preset 1\n");
+        goPreset1();
+        break;
+    case HandsetPresets::Two:
+        // mDesiredHeight = mSettings.getPreset2();
+        goPreset2();
+        break;
+    case HandsetPresets::Three:
+        // mDesiredHeight = mSettings.getPreset3();
+        Serial.printf("Go to preset 3\n");
+        goPreset3();
+        break;
+    case HandsetPresets::Four:
+        goPreset4();
+        // mDesiredHeight = mSettings.getPreset4();
+        break;
+    default:
+        Serial.printf("Unknown preset\n");
+        // mDesiredHeight = mSettings.getPreset1();
+        break;
+    }
+}
+
+void JarvisDesk::requestSit()
+{
+    requestPreset(mDefaultSittingPreset);
+}
+
+void JarvisDesk::requestStand()
+{
+    requestPreset(mDefaultStandingPreset);
 }
 
 void JarvisDesk::setPreset1()

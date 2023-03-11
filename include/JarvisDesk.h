@@ -120,7 +120,7 @@ struct Settings
 class JarvisDesk 
 {
 public:
-    JarvisDesk();
+    JarvisDesk(HandsetPresets defaultSitting, HandsetPresets defaultStanding);
 
     void setup();
     void loop();
@@ -151,6 +151,10 @@ public:
     void goPreset2();
     void goPreset3();
     void goPreset4();
+
+    void requestPreset(const HandsetPresets value);
+    void requestStand();
+    void requestSit();
     
     void setPreset1();
     void setPreset2();
@@ -190,6 +194,11 @@ private:
 
     HandsetHandler mHandset;
     ControlboxHandler mControlbox;
+
+    HandsetPresets mDefaultStandingPreset;
+    HandsetPresets mDefaultSittingPreset;
+
+    uint16_t mDesiredHeight;
 };
 
 #endif   // JARVISDESK_H
