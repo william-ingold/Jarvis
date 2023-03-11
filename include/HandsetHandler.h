@@ -13,6 +13,15 @@ enum HandsetMode
     ShowValue
 };
 
+enum HandsetPresets
+{
+    One = 1,
+    Two,
+    Three,
+    Four,
+    UNSET,
+};
+
 class HandsetHandler : public SerialDevice
 {
 public:
